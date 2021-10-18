@@ -32,9 +32,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-    - name: my-artifact
+    - name: Artifact
     
-      uses: actions/checkout@v2
+      uses: actions/upload-artifact@v2
       with:
         path: WebAppDemo/ # or path/to/artifact
 
