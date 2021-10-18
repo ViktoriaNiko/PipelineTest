@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: web-api-demo
 
 jobs:
-  test:
+  release:
 
     runs-on: ubuntu-latest
 
@@ -30,10 +30,17 @@ jobs:
       run: dotnet publish --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal     
+      run: dotnet test --no-build --verbosity normal
       
+    - name: my-artifact
+    
+      uses: actions/checkout@v2
+      with:
+        path: WebAppDemo/ # or path/to/artifact
+
+         
   image:
-    needs: test
+    needs: release
 
     runs-on: ubuntu-latest
 
