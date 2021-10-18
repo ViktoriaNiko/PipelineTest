@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ main ]
+    tags:
+      - v*
   pull_request:
     branches: [ main ]
+env:
+  IMAGE_NAME: WebApi-Demo
 
 jobs:
   build:
@@ -14,12 +18,30 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
+    
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+      
+  image:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build image
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      
+
+
