@@ -31,11 +31,15 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: version
+      run: echo "::set-output name=version::$(./WebAppDemo/bin/Debug/net5.0/publish --version)"
+      id: version
       
-    - name: release_"${{ github.ref }}"
+    - name: artifacts
     
       uses: actions/upload-artifact@v2
       with:
+        name: web-api-demo-"${{ steps.version.outputs.version }}"
         path: WebAppDemo/bin/Debug/net5.0/publish # or path/to/artifact
 
          
