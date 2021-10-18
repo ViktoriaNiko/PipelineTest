@@ -30,9 +30,7 @@ jobs:
       run: dotnet publish --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-
-     
+      run: dotnet test --no-build --verbosity normal     
       
   image:
     needs: test
@@ -63,7 +61,4 @@ jobs:
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-        docker push $IMAGE_ID:$VERSION
-      
-
-
+        docker push $IMAGE_ID:$VERSION      
