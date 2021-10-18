@@ -23,6 +23,13 @@ jobs:
       with:
         dotnet-version: 5.0.x
         
+    - name: Declare variables
+      id: vars
+      shell: bash
+      run: |
+        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        
     - name: Restore dependencies
       run: dotnet restore
 
@@ -31,15 +38,12 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: version
-      run: echo "::set-output name=version::$(./WebAppDemo/bin/Debug/net5.0/publish --version)"
-      id: version
       
     - name: artifacts
     
       uses: actions/upload-artifact@v2
       with:
-        name: web-api-demo-"${{ steps.version.outputs.version }}"
+        name: web-api-demo_"${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}"
         path: WebAppDemo/bin/Debug/net5.0/publish # or path/to/artifact
 
          
