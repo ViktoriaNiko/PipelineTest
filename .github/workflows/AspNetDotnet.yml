@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: web-api-demo
 
 jobs:
-  build-and-test:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -32,21 +32,10 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-  release:
-    needs: build-and-test
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Create Release
-    - uses: AButler/upload-release-assets@v2.0
-      with:
-        files: 'WebAppDemo/bin/Release/publish/*'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-      
+     
       
   image:
-    needs: build-and-test
+    needs: test
 
     runs-on: ubuntu-latest
 
