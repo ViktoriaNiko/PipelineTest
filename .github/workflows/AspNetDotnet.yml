@@ -41,7 +41,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Build image
-      run: docker build . --file WebAppDemo\Dockerfile --tag $IMAGE_NAME
+      run: docker build . --file WebAppDemo/Dockerfile --tag $IMAGE_NAME
       
 
 
