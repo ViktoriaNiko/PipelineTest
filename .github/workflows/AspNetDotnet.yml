@@ -37,7 +37,7 @@ jobs:
       run: dotnet publish --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal  --logger html ./test_results
+      run: dotnet test --no-build --verbosity normal --logger html --results-directory test_results
       
     - name: Build artifacts
       uses: actions/upload-artifact@v2
