@@ -21,4 +21,5 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_URLS=http://+:80 DOTNET_RUNNING_IN_CONTAINER=true 
 ENTRYPOINT ["dotnet", "WebAppDemo.dll"]
