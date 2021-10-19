@@ -37,10 +37,15 @@ jobs:
       run: dotnet publish --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal  --logger html ./test_results
       
-    - name: artifacts
-    
+    - name: Build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_results_${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
+        path: test_results # or path/to/artifact
+      
+    - name: Build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: web-api-demo_${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
