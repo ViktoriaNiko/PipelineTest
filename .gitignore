@@ -2,3 +2,6 @@
 /.vs/VSWorkspaceState.json
 */bin/
 */obj/
+/test_results/*
+*/TestResults/*
+*.csproj.user
